@@ -101,7 +101,7 @@ Using a URL:
 ![CornellSeal](https://github.com/AguaClara/aguaclara_tutorial/blob/master/Images/Cornell_University_seal.svg.png?raw=true)
 
 Using a Relative File Path:
-![CornellSeal](/Images/Cornell_University_seal.svg.png)
+![CornellSeal](./Images/Cornell_University_seal.svg.png)
 
 Image with Height and Width Adjusted:
 
@@ -109,19 +109,16 @@ Image with Height and Width Adjusted:
 
 1. Make an images folder in your personal repository, and import an image of your hometown or pet from that folder. Do it unformatted using the image URL and the relative file path method, then do it again but instead change the height and width of your image:
 
-Using a URL: If I had a dog <3
+**Using a URL: If I had a dog <3**
 ![Husky](https://github.com/ms3442/Personal_MS/blob/master/My%20Images/Husky.jpg?raw=true)
 
 
-Using a Relative File Path:
-![Husky](/MyImages/Husky.jpg)
+**Using a Relative File Path:**
+![Husky](./My_Images/Husky.jpg)
 
-Image with Height and Width Adjusted:
+**Image with Height and Width Adjusted:**
 
 <img src="https://github.com/ms3442/Personal_MS/blob/master/My%20Images/Husky.jpg?raw=true" height=200 width=100>
-
-
-
 
 
 HH## Links
@@ -131,7 +128,7 @@ To insert a link, all you have to do is enclose your linked text in `[]` followe
 
 1. Below, write a sentence describing your major, and insert a link to your major's department website.
 
-I am a MEng in CEE with a concentration in Environmental Processes. My major seeks to look at the concepts and technology needed to ensure that water quality standard are met. More info can be found [here](http://www.cee.cornell.edu/academics/graduate/civil_environmental/environmental_processes.cfm).
+**I am a MEng in CEE with a concentration in Environmental Processes. My major seeks to look at the concepts and technology needed to ensure that water quality standard are met. More info can be found [here](http://www.cee.cornell.edu/academics/graduate/civil_environmental/environmental_processes.cfm).**
 
 
 ## Tables
@@ -245,12 +242,15 @@ These questions are meant to test what you've learned from the Python Basics tut
 
 1. Write a conditional statement with 3 conditions: when x is 10, when x is 1, and when x is anything other than 1 or 10. For each condition, have your code print what the value is or isn't.
 
+**Conditional Statement Code**
 ```python
-from aide_design.play import*
-x=3
-y=2
-z=x+y
-print(z)
+a=40
+if a==10:
+  print('a is 10')
+elif a==1:
+  print('a is 1')
+else:
+  print('a is not 1 or 10')
 ```
 
 
@@ -258,7 +258,17 @@ print(z)
 
 2. Write a `for` loop that takes a variable with an initial value of 0, and adds the current index to the previous value of that variable (i.e. you variable should grow in size every iteration). Perform the iteration 20 times, and have the final value be printed at the end.
 
-<!--- Fill you answer here. --->
+**For Loop Code**
+```python
+y=0
+for i in range(20):
+  y=y+i
+print(y)
+
+```
+
+
+
 
 
 
@@ -270,11 +280,18 @@ print(z)
 
 3. Using the NumPy package, calculate the value of sin(4), and use the sigfig function from the utility module in aide_design to get your answer to 3 sig-figs. *(Hint: You will need to import these packages. Remember how to do that?)*
 
-<!--- Fill you answer here. --->
+**Sin Function Code**
+```python
+from aide_design.play import*
+ut.sig(np.sin(4),3)
+```
+
 
 
 
 4. Create a `list` of length 5, and verify the length of your list. Once you've done that, turn your `list` into an `array` and apply units of meters to it. After that, create a 5x5 `array`, extract the middle row and middle column. Verify the size of your 2D `array` and apply units of liters to it.
+
+**List Code**
 
 ```python
 from aide_design.play import*
@@ -304,36 +321,41 @@ second_arrayunits=second_array*u.l
 
     *(Hint: You'll want to make sure Temperature input is turned into Kelvin and radius input is turned into meters. Your answer should also be in base units How might you do this? Check back to the Python Basics tutorial where I wrote an Ideal Gas function)*
 
+**Stokes-Einstein Code**
+
 $$ D = \frac{k_BT}{6\pi\eta r} $$
 
 ```python
 from scipy.constants import Boltzmann as kB_sc # I've imported the unitless value for kB from SciPy
 
-kB = kB_sc * u.joule / u.kelvin # I've given kB units for you in J/K; you can use the kB variable to give you Boltzmann's constant with units
+kB = kB_sc * u.joule /u.kelvin # I've given kB units for you in J/K; you can use the kB variable to give you Boltzmann's constant with units
 
 def Stokes_eq(kb,Temp,mui,r):
   Temp=Temp*u.degK
   mui=mui*(u.kg/(u.m*u.s))
   r=r*u.m
-  D=(kb*Temp/(6*np.pi*visco*r)).to_base_units()
+  D=(kB*Temp/(6*np.pi*mui*r)).to_base_units()
   return D
-  kb=1*u.joule/u.degK
-  print(Stokes_eq(kb,300*u.degK,0.00004*u.kg/(u.m*u.s),0.01*u.m))
+  # kb=1*u.joule/u.degK
+print(Stokes_eq(kB,300,0.00004,0.01))
 
 
 ```
 
 6. You have a pipe with a radius of 0.2 m with water flowing in it at 2 m<sup>3</sup>/s. You want to see how the Reynolds Number changes as viscosity changes due to a change in temperature from 0 to 200<sup>o</sup>C. Create a plot of Reynolds Number against Temperature in Kelvin to show a relationship. Make sure your plot has a title, labeled axes, and axes grid. You can use functions from `physchem` like `pc.re_pipe` and `pc.viscosity_kinematic`. *(Hint: Make an array of temperatures to input into the `pc.viscosity_kinematic` function)*. Make sure to save your plot to your images folder in your personal repository, and display it below using `plt.show()` and an image insertion using a relative file path to the image.
 
+
+**Plot of Reynolds Number vs. Temp Code**
+
 ```python
 from aide_design.play import*
 flow_rate=2*u.m**3/u.s
 radius=0.2*u.m
-temp_array=np.arrange(273,473,1)*u.degK
-visco_array=pc.viscosity_k(temp_array)
-Re_array=pc.re_pipe(q,r,visco_array)
+temp_array=np.arange(273,473,1)*u.degK
+visco_array=pc.viscosity_kinematic(temp_array)
+Re_array=pc.re_pipe(flow_rate,radius,visco_array)
 
-plt.plot(temp_array,re_array,'-',label='ReyonldsNumber')
+plt.plot(temp_array,Re_array,'-',label='ReyonldsNumber')
 plt.xlabel('Temperature in Kelvin')
 plt.ylabel('Reynolds Number')
 plt.title('Reynolds Number Vs. Temp')
@@ -342,7 +364,11 @@ plt.minorticks_on()
 plt.grid(which='major')
 plt.grid(which='minor')
 plt.legend(loc='lower right')
+plt.savefig('ReynoldsPlot.png')
 plt.show()
+
+
+
 
 
 
@@ -356,14 +382,20 @@ In this section you and your team can practice using Teletype together.
 
 1. Create a portal for your team members to join. Have them write you words of  encouragement in the space below, and be sure they sign their name next to their encouragements.
 
-<!--- Fill you answer here. --->
+**Hey Mehrin!!  Mehrin is pretty cool. <3 -Roswell**
 
+**Mehrin, I hope you have a good last semester at Cornell! -Kanha**
+
+
+:P :P :P :P :P :P :P :P
+
+Ok, starting this tutorial now.. it'll take a minute
 
 
 
 2. Have you other team members create a portal for you to join. In their Markdown file, write them something encouraging, and sign your name.
 
-<!--- Fill you answer here. --->
+**I wrote encouraging words in Roswell and Kanha's tutorials** :D :D :D
 
 
 # GitHub Basics
